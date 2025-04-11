@@ -1,4 +1,7 @@
 package fr.diginamic.immobilier.entites;
+
+import java.util.Arrays;
+
 /** Représente une maison avec toutes ses pièces
  * @author DIGINAMIC
  *
@@ -35,14 +38,15 @@ public class Maison {
 		
 		// On place en dernière position dans le nouveau tableau la nouvelle
 		// pièce
-		newTab[newTab.length-1]=nvPiece;
-		
-		// Enfin on affecte newTab à pieces
-		this.pieces=newTab;
+		if(nvPiece != null) {
+			newTab[newTab.length-1]=nvPiece;
+			// Enfin on affecte newTab à pieces
+			this.pieces=newTab;
+		}
 	}
 	
 	public int nbPieces() {
-		return pieces.length-1;
+		return pieces.length;
 	}
 
 	/** Retourne la superficie d'un étage
@@ -54,7 +58,7 @@ public class Maison {
 
 		for (int i = 0; i < pieces.length; i++) {
 			if (choixEtage == this.pieces[i].getNumEtage()) {
-				superficieEtage = this.pieces[i].getSuperficie();
+				superficieEtage += this.pieces[i].getSuperficie();
 			}
 		}
 
@@ -68,9 +72,9 @@ public class Maison {
 	public double superficieTypePiece(String typePiece) {
 		double superficie = 0;
 
-		for (int i = 1; i < pieces.length; i++) {
-			if (typePiece!=null && typePiece.equals(this.pieces[i].getType())) {
-				superficie = superficie + this.pieces[i].getSuperficie();
+		for (int i = 0; i < pieces.length; i++) {
+			if (typePiece!=null && typePiece.equalsIgnoreCase(this.pieces[i].getType())) {
+				superficie += this.pieces[i].getSuperficie();
 			}
 		}
 
@@ -84,10 +88,21 @@ public class Maison {
 		double superficieTot = 0;
 
 		for (int i = 0; i < pieces.length; i++) {
-			superficieTot = superficieTot + this.pieces[i].getSuperficie();
+			superficieTot += + this.pieces[i].getSuperficie();
 		}
 
 		return superficieTot;
+	}
+
+	/**
+	 * Affichage optimisé d'une maison
+	 */
+	@Override
+	public String toString() {
+		final StringBuilder sb = new StringBuilder("Maison{");
+		sb.append("pieces=").append(Arrays.toString(pieces));
+		sb.append('}');
+		return sb.toString();
 	}
 
 	/** Getter pour l'attribut pieces
@@ -96,5 +111,4 @@ public class Maison {
 	public Piece[] getPieces() {
 		return pieces;
 	}
-
 }

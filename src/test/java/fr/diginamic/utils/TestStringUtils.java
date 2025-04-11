@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class StringUtilsTest {
+public class TestStringUtils {
 
     @Test
     public void levenshteinDistanceInf1Test() {
